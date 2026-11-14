@@ -1,0 +1,17 @@
+
+workflows:
+  android-build:
+    name: Dynamic Island Pro APK
+    max_build_duration: 120
+    instance_type: mac_mini_m2
+    environment:
+      java: 17
+    scripts:
+      - name: 設定 Android SDK
+        script: |
+          echo "sdk.dir=$ANDROID_SDK_ROOT" > "$CM_BUILD_DIR/local.properties"
+      - name: 編譯 APK
+        script: |
+          gradle --no-daemon assembleDebug
+    artifacts:
+      - app/build/outputs/apk/debug/*.apk
